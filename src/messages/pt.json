@@ -1,0 +1,15 @@
+{
+  "Header": {
+    "products": "Produtos",
+    "about": "Sobre",
+    "faq": "Dúvidas",
+    "contact": "Contato"
+  },
+  "Hero": {
+    "title": "Descubra os Melhores Produtos",
+    "subtitle": "Dropshipping internacional com os melhores preços"
+  },
+  "ProductCard": {
+    "addToCart": "Adicionar ao Carrinho"
+  }
+}
