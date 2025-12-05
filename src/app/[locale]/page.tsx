@@ -31,19 +31,20 @@ export default function Home() {
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
           {categories.map((category) => {
-            const IconComponent = iconMap[category.icon as IconName] || Headphones;
-            return(
-            <button
-              key={category.name}
-              className="group relative p-6 rounded-2xl bg-card border border-border/50 hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300 hover:-translate-y-1"
-            >
-              <div className={`h-14 w-14 mx-auto mb-4 rounded-xl bg-gradient-to-br ${category.color} flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300`}>
-                <IconComponent className="h-7 w-7 text-white" />
-              </div>
-              <h3 className="font-semibold text-base mb-1">{category.name}</h3>
-              <p className="text-sm text-muted-foreground">{category.count} produtos</p>
-            </button>
-          )})}
+            const IconComponent = iconMap[category.icon as keyof typeof iconMap] || Headphones;
+            return (
+              <button
+                key={category.name}
+                className="group relative p-6 rounded-2xl bg-card border border-border/50 hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300 hover:-translate-y-1"
+              >
+                <div className={`h-14 w-14 mx-auto mb-4 rounded-xl bg-gradient-to-br ${category.color} flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                  <IconComponent className="h-7 w-7 text-white" />
+                </div>
+                <h3 className="font-semibold text-base mb-1">{category.name}</h3>
+                <p className="text-sm text-muted-foreground">{category.count} produtos</p>
+              </button>
+            )
+          })}
         </div>
       </section>
 

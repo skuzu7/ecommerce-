@@ -7,7 +7,7 @@ import { Metadata, ResolvingMetadata } from 'next';
 import { products as allProducts } from "@/data/products"; // Importando todos os produtos
 
 type Props = {
-  params: { id: string }
+    params: Promise<{ id: string }>
 }
 
 // Mock function to fetch a single product
@@ -38,43 +38,44 @@ async function getProduct(id: string) {
 }
 
 export async function generateMetadata(
-  { params }: Props,
-  parent: ResolvingMetadata
+    { params }: Props,
+    parent: ResolvingMetadata
 ): Promise<Metadata> {
-  const id = params.id;
-  const product = await getProduct(id);
+    const { id } = await params;
+    const product = await getProduct(id);
 
-  if (!product) {
-    return {
-      title: "Produto não encontrado",
+    if (!product) {
+        return {
+            title: "Produto não encontrado",
+        }
     }
-  }
- 
-  return {
-    title: `${product.title} | Loja Premium`,
-    description: product.description,
-    openGraph: {
-      title: product.title,
-      description: product.description,
-      images: [
-        {
-          url: product.image,
-          width: 800,
-          height: 800,
-          alt: product.title,
+
+    return {
+        title: `${product.title} | Loja Premium`,
+        description: product.description,
+        openGraph: {
+            title: product.title,
+            description: product.description,
+            images: [
+                {
+                    url: product.image,
+                    width: 800,
+                    height: 800,
+                    alt: product.title,
+                },
+            ],
         },
-      ],
-    },
-  }
+    }
 }
 
 export default async function ProductPage({ params }: Props) {
-    const product = await getProduct(params.id);
+    const { id } = await params;
+    const product = await getProduct(id);
 
     if (!product) {
         return <div className="container py-10 text-center">Produto não encontrado.</div>;
     }
-    
+
     const discount = Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100);
 
     return (

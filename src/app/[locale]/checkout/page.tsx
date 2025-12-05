@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useCart } from "@/context/cart-context";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
@@ -12,7 +13,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { CreditCard, Landmark, QrCode, User, Mail, Phone, Truck, Package, ChevronLeft } from "lucide-react";
 import Link from "next/link";
-import { useToast } from "@/components/ui/use-toast"; // Assumindo que você tenha o 'use-toast' do shadcn
+import { toast } from "sonner";
 
 export default function CheckoutPage() {
     const { items, total, clearCart } = useCart();
@@ -51,11 +52,10 @@ export default function CheckoutPage() {
         // Simulação de envio para a API do fornecedor
         console.log("Enviando pedido para o fornecedor:", orderData);
         alert(`Pedido Simulado!\n\nDados enviados ao fornecedor:\n${JSON.stringify(orderData, null, 2)}`);
-        
-        // toast({
-        //   title: "Pedido realizado com sucesso!",
-        //   description: "Seu pedido foi enviado para processamento.",
-        // });
+
+        toast.success("Pedido realizado com sucesso!", {
+            description: "Seu pedido foi enviado para processamento.",
+        });
 
         clearCart();
         // Redirecionar para uma página de "Obrigado"
@@ -78,7 +78,7 @@ export default function CheckoutPage() {
                     <div className="lg:col-span-2 space-y-6">
                         {/* Formulários de Contato e Endereço */}
                         <Card>
-                            <CardHeader><CardTitle className="flex items-center gap-2"><User className="text-primary"/> Informações de Contato</CardTitle></CardHeader>
+                            <CardHeader><CardTitle className="flex items-center gap-2"><User className="text-primary" /> Informações de Contato</CardTitle></CardHeader>
                             <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div className="space-y-2"><Label htmlFor="name">Nome Completo</Label><Input id="name" placeholder="Seu nome" /></div>
                                 <div className="space-y-2"><Label htmlFor="email">E-mail</Label><Input id="email" type="email" placeholder="seu@email.com" /></div>
@@ -87,7 +87,7 @@ export default function CheckoutPage() {
                         </Card>
 
                         <Card>
-                            <CardHeader><CardTitle className="flex items-center gap-2"><Truck className="text-primary"/> Endereço de Entrega</CardTitle></CardHeader>
+                            <CardHeader><CardTitle className="flex items-center gap-2"><Truck className="text-primary" /> Endereço de Entrega</CardTitle></CardHeader>
                             <CardContent className="space-y-4">
                                 <div className="space-y-2">
                                     <Label htmlFor="country">País</Label>
@@ -110,7 +110,7 @@ export default function CheckoutPage() {
 
                         {/* Pagamento */}
                         <Card>
-                            <CardHeader><CardTitle className="flex items-center gap-2"><CreditCard className="text-primary"/> Pagamento</CardTitle></CardHeader>
+                            <CardHeader><CardTitle className="flex items-center gap-2"><CreditCard className="text-primary" /> Pagamento</CardTitle></CardHeader>
                             <CardContent>
                                 <Accordion type="single" collapsible defaultValue="credit-card" className="w-full">
                                     {/* Opções de Pagamento */}
@@ -122,7 +122,7 @@ export default function CheckoutPage() {
                     {/* Resumo do Pedido */}
                     <div className="lg:col-span-1">
                         <Card className="sticky top-24">
-                            <CardHeader><CardTitle className="flex items-center gap-2"><Package className="text-primary"/> Resumo do Pedido</CardTitle></CardHeader>
+                            <CardHeader><CardTitle className="flex items-center gap-2"><Package className="text-primary" /> Resumo do Pedido</CardTitle></CardHeader>
                             <CardContent className="space-y-4">
                                 <div className="space-y-3 max-h-64 overflow-y-auto">
                                     {items.map(item => (

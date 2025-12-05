@@ -55,11 +55,11 @@ export default async function RootLayout({
   params,
 }: {
   children: React.ReactNode;
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }) {
-  const { locale } = params;
+  const { locale } = await params;
   const messages = await getMessages();
-  
+
   // Atualiza o locale do OpenGraph dinamicamente
   if (metadata.openGraph) {
     metadata.openGraph.locale = locale === 'en' ? 'en_US' : 'pt_BR';
