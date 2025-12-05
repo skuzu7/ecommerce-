@@ -52,11 +52,12 @@ import { SalesPopup } from "@/components/SalesPopup";
 
 export default async function RootLayout({
   children,
-  params: { locale },
-}: Readonly<{
+  params,
+}: {
   children: React.ReactNode;
   params: { locale: string };
-}>) {
+}) {
+  const { locale } = params;
   const messages = await getMessages();
   
   // Atualiza o locale do OpenGraph dinamicamente
